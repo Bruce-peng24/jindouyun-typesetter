@@ -1,0 +1,2 @@
+*.exe filter=lfs diff=lfs merge=lfs -text
+pandoc/pandoc.exe filter=lfs diff=lfs merge=lfs -text
