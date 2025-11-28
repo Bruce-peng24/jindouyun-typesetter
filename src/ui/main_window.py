@@ -26,6 +26,9 @@ from utils.file_utils import (
     get_file_path, get_file_name, generate_output_path, get_project_root_dir
 )
 
+# 导入版本检查模块
+from core.version_checker import get_expiration_message, get_test_version_message
+
 
 class PandocGUI(QMainWindow):
     """主窗口类"""
@@ -132,11 +135,26 @@ class PandocGUI(QMainWindow):
         self.status_label = QLabel('就绪')
         self.status_label.setAlignment(Qt.AlignCenter)
         
+        # 过期提示标签
+        self.expiration_label = QLabel()
+        self.expiration_label.setAlignment(Qt.AlignCenter)
+        self.expiration_label.setStyleSheet("color: #d9534f; font-weight: bold;")
+        self.expiration_label.setText(get_expiration_message())
+        
+        # 测试版本提示标签
+        self.test_version_label = QLabel()
+        self.test_version_label.setAlignment(Qt.AlignCenter)
+        self.test_version_label.setStyleSheet("color: black; font-style: italic; padding: 5px;")
+        self.test_version_label.setWordWrap(True)
+        self.test_version_label.setText(get_test_version_message())
+        
         # 添加所有布局到主布局
         main_layout.addLayout(file_layout)
         main_layout.addLayout(format_layout)
         main_layout.addLayout(button_layout)
         main_layout.addWidget(self.status_label)
+        main_layout.addWidget(self.expiration_label)
+        main_layout.addWidget(self.test_version_label)
         main_layout.addStretch()
     
     def select_input_file(self):
