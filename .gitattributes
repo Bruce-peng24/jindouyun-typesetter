@@ -1,3 +1,4 @@
 *.exe filter=lfs diff=lfs merge=lfs -text
 pandoc/pandoc.exe filter=lfs diff=lfs merge=lfs -text
 *.pkg filter=lfs diff=lfs merge=lfs -text
+build/Pandoc-GUI/Pandoc-GUI.pkg filter=lfs diff=lfs merge=lfs -text
