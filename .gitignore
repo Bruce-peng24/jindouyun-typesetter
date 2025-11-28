@@ -1,1 +1,9 @@
 build/
+build/
+*.pkg
+*.msi
+*.dmg
+*.deb
+*.rpm
+build/
+*.pkg
