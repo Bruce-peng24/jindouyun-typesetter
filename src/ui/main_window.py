@@ -37,7 +37,7 @@ class PandocGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Pandoc GUI')
-        self.setGeometry(100, 100, 600, 400)
+        self.setGeometry(100, 100, 800, 600)
         
         # 获取项目根目录 - 需要向上两级目录（从 src/ui/ 到项目根目录）
         self.root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -189,6 +189,12 @@ class PandocGUI(QMainWindow):
         main_layout.addWidget(self.expiration_label)
         main_layout.addWidget(self.test_version_label)
         main_layout.addStretch()
+        
+        # 版权声明
+        copyright_label = QLabel('Copyright © 2024 BrucePeng')
+        copyright_label.setAlignment(Qt.AlignCenter)
+        copyright_label.setStyleSheet("color: #666666; font-size: 15px; margin: 5px;")
+        main_layout.addWidget(copyright_label)
     
     def select_input_file(self):
         """选择输入文件"""
