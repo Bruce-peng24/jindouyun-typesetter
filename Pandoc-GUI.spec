@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_all
 
-datas = [('src', 'src')]
+datas = [('src', 'src'), ('pandoc', 'pandoc')]
 binaries = []
 hiddenimports = []
 tmp_ret = collect_all('PyQt5')
@@ -15,7 +15,7 @@ datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 
 
 a = Analysis(
-    ['src\\main.py'],
+    ['app_minimal_fixed.py'],
     pathex=[],
     binaries=binaries,
     datas=datas,

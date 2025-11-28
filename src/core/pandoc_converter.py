@@ -4,6 +4,7 @@ Pandoc转换器模块
 """
 
 import os
+import sys
 import subprocess
 from PyQt5.QtWidgets import QMessageBox
 
@@ -12,7 +13,8 @@ class PandocConverter:
     """Pandoc转换器"""
     
     def __init__(self, pandoc_path=None):
-        self.pandoc_path = pandoc_path
+        # 优先使用传入的路径，其次使用环境变量中的路径
+        self.pandoc_path = pandoc_path or os.environ.get('PANDOC_PATH')
         self.supported_formats = [
             'markdown', 'docx', 'pdf', 'html', 'epub', 'odt', 
             'txt', 'rst', 'json', 'latex', 'xml', 'pptx'
@@ -21,6 +23,13 @@ class PandocConverter:
     def set_pandoc_path(self, path):
         """设置Pandoc可执行文件路径"""
         self.pandoc_path = path
+        # 检查路径是否存在，如果不存在则尝试其他可能的路径
+        if self.pandoc_path and not os.path.exists(self.pandoc_path):
+            # 尝试从临时目录获取
+            if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+                alt_path = os.path.join(sys._MEIPASS, 'pandoc', 'pandoc.exe')
+                if os.path.exists(alt_path):
+                    self.pandoc_path = alt_path
     
     def convert_file(self, input_file, output_file, template_file=None):
         """

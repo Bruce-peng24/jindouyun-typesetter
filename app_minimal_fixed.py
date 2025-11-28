@@ -28,6 +28,10 @@ if getattr(sys, 'frozen', False):
     src_path = os.path.join(application_path, 'src')
     if os.path.exists(src_path):
         sys.path.insert(0, src_path)
+    
+    # 确保pandoc路径可用
+    pandoc_path = os.path.join(temp_dir, 'pandoc', 'pandoc.exe') if hasattr(sys, '_MEIPASS') else os.path.join(application_path, 'pandoc', 'pandoc.exe')
+    os.environ['PANDOC_PATH'] = pandoc_path
 else:
     # 如果是开发环境
     current_dir = os.path.dirname(os.path.abspath(__file__))

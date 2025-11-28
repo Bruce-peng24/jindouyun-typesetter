@@ -41,7 +41,32 @@ class PandocGUI(QMainWindow):
         
         # 获取项目根目录 - 需要向上两级目录（从 src/ui/ 到项目根目录）
         self.root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        self.pandoc_path = os.path.join(self.root_dir, 'pandoc', 'pandoc.exe')
+        
+        # 获取正确的pandoc路径
+        if getattr(sys, 'frozen', False):
+            # 在打包后的exe中
+            if hasattr(sys, '_MEIPASS'):
+                # 在单文件exe中，使用临时目录
+                self.pandoc_path = os.path.join(sys._MEIPASS, 'pandoc', 'pandoc.exe')
+            else:
+                # 在多文件exe中，使用exe所在目录
+                self.pandoc_path = os.path.join(os.path.dirname(sys.executable), 'pandoc', 'pandoc.exe')
+        else:
+            # 在开发环境中，使用项目根目录
+            self.pandoc_path = os.path.join(self.root_dir, 'pandoc', 'pandoc.exe')
+            
+        # 确保路径存在，如果不存在则尝试其他可能的路径
+        if not os.path.exists(self.pandoc_path):
+            print(f"Warning: Pandoc not found at {self.pandoc_path}")
+            # 尝试从当前exe目录获取
+            if getattr(sys, 'frozen', False):
+                exe_dir = os.path.dirname(sys.executable)
+                alt_path = os.path.join(exe_dir, 'pandoc', 'pandoc.exe')
+                if os.path.exists(alt_path):
+                    self.pandoc_path = alt_path
+                    print(f"Found Pandoc at alternative path: {self.pandoc_path}")
+                else:
+                    print(f"Error: Pandoc not found at {alt_path} either")
         
         # 初始化转换器
         self.converter = PandocConverter(self.pandoc_path)
@@ -103,9 +128,9 @@ class PandocGUI(QMainWindow):
         
         # 模板文件选择
         template_layout = QHBoxLayout()
-        self.template_label = QLabel('未选择模板文件（可选）')
+        self.template_label = QLabel('未选择模板文件')
         self.template_label.setFixedWidth(300)
-        template_button = QPushButton('选择模板文件')
+        template_button = QPushButton('选择docx模板文件(可选)')
         template_button.clicked.connect(self.select_template_file)
         
         template_layout.addWidget(self.template_label)
