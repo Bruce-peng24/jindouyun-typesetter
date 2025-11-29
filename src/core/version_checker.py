@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import QMessageBox
 BEIJING_TZ = timezone(timedelta(hours=8))
 
 # 过期时间常量 (北京时间)
-EXPIRATION_DATE = datetime(2025, 12, 5, 0, 0, 0, tzinfo=BEIJING_TZ)
+EXPIRATION_DATE = datetime(2025, 12, 12, 0, 0, 0, tzinfo=BEIJING_TZ)
 
 
 def check_network_time():

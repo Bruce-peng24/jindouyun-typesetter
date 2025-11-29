@@ -38,30 +38,15 @@ else:
     src_path = os.path.join(current_dir, 'src')
     sys.path.insert(0, src_path)
 
-# 修复网络检查问题 - 创建一个简单的版本检查函数
-def simple_check_expiration():
-    """简单的过期检查，避免网络问题"""
-    from datetime import datetime, timezone, timedelta
-    
-    # 北京时间时区 (UTC+8)
-    BEIJING_TZ = timezone(timedelta(hours=8))
-    
-    # 过期时间常量 (北京时间)
-    EXPIRATION_DATE = datetime(2025, 12, 5, 0, 0, 0, tzinfo=BEIJING_TZ)
-    
-    # 使用本地时间检查
-    local_time = datetime.now(BEIJING_TZ)
-    
-    print(f"Current Time (Beijing): {local_time}")
-    print(f"Expiration Time (Beijing): {EXPIRATION_DATE}")
-    
-    return local_time < EXPIRATION_DATE
+# 导入版本检查模块
+from core.version_checker import check_expiration
+print("Version checker module loaded successfully")
 
 try:
     # 尝试导入PyQt5
-    from PyQt5.QtWidgets import QApplication, QMessageBox
-    from PyQt5.QtCore import Qt
-    from PyQt5.QtGui import QIcon
+    from PyQt5.QtWidgets import QApplication, QMessageBox, QSplashScreen
+    from PyQt5.QtCore import Qt, QTimer
+    from PyQt5.QtGui import QIcon, QPixmap
     print("PyQt5 import successful")
     
     # 尝试直接导入模块，不使用包结构
@@ -85,16 +70,43 @@ try:
     app = QApplication(sys.argv)
     print("QApplication created")
     
-    # 执行简单的过期检查（避免网络问题）
-    if not simple_check_expiration():
-        from PyQt5.QtWidgets import QMessageBox
-        QMessageBox.critical(None, "版本过期", "当前版本已过期，请联系开发者获取最新版。")
+    # 创建启动画面 - 使用QSplashScreen
+    # 获取图片路径
+    if getattr(sys, 'frozen', False):
+        if hasattr(sys, '_MEIPASS'):
+            splash_image_path = os.path.join(sys._MEIPASS, 'resource', 'loading.png')
+        else:
+            splash_image_path = os.path.join(application_path, 'resource', 'loading.png')
+    else:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        splash_image_path = os.path.join(current_dir, 'resource', 'loading.png')
+    
+    # 创建并显示启动画面
+    try:
+        splash = QSplashScreen(QPixmap(splash_image_path))
+        splash.show()
+        print("Splash screen created and shown")
+    except Exception as e:
+        print(f"无法加载启动画面: {e}")
+        splash = None
+    
+    # 执行版本检查（使用网络时间）
+    if not check_expiration():
         sys.exit(1)
     
-    # 创建主窗口
-    window = SimpleMainWindow()
-    print("SimpleMainWindow window created")
-    window.show()
+    # 定义显示主窗口的函数
+    def show_main_window():
+        # 创建主窗口
+        window = SimpleMainWindow()
+        print("SimpleMainWindow window created")
+        window.show()
+        
+        # 关闭启动画面
+        if splash:
+            splash.finish(window)
+    
+    # 设置2秒后显示主窗口并关闭启动画面
+    QTimer.singleShot(2000, show_main_window)
     
     # 运行应用程序
     sys.exit(app.exec_())
