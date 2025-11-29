@@ -142,29 +142,40 @@ Pandoc-GUI/
 ├── venv/                 # 虚拟环境
 ├── requirements.txt      # 项目依赖
 ├── README.md            # 本文件
-├── REBUILD_GUIDE.md     # 重新打包指南
-├── rebuild_app.bat      # 重新打包脚本
-└── rebuild_tool.py      # 打包辅助工具
+├── BUILD_GUIDE.md       # 综合构建指南
+├── auto_detect_deps.py  # 自动依赖检测脚本
+├── rebuild_app.bat      # 重新打包脚本（包含自动优化）
+├── Pandoc-GUI.spec      # PyInstaller配置文件
+└── UPX_OPTIMIZATION.md  # UPX压缩优化说明
 ```
 
 ## 开发指南
 
 ### 重新打包应用程序
 
-如需修改代码后重新打包应用程序，请参考 `REBUILD_GUIDE.md` 中的详细说明，或使用以下快捷命令：
+如需修改代码后重新打包应用程序，请参考 `BUILD_GUIDE.md` 中的详细说明，或使用以下快捷命令：
 
 ```bash
-# 使用预设脚本打包
+# 使用预设脚本打包（推荐，包含自动依赖优化）
 rebuild_app.bat
 ```
 
-#### 打包命令说明
+#### 自动依赖优化
 
-当前项目的成功打包命令如下：
+项目包含自动检测和优化系统，可以：
+- 自动检测项目实际使用的PyQt5组件，只包含必要的部分
+- 自动检测并排除未使用的Python标准库模块
+- 应用优化的UPX压缩设置，减小最终exe文件体积
+
+#### 手动打包（不推荐）
+
+如需手动打包，可使用以下命令：
 
 ```bash
 pyinstaller --onefile --windowed --name="Pandoc-GUI" --add-data "src;src" --collect-all PyQt5 --collect-all docx --collect-all python-docx --collect-all ntplib app_minimal_fixed.py
 ```
+
+注意：手动打包不会应用依赖优化，生成的exe文件可能会较大。
 
 ### 模块化架构
 
@@ -196,7 +207,13 @@ dist/
 
 ## 版本历史
 
-### v0.1.0 (当前版本)
+### v0.1.1 (当前版本)
+- 添加自动依赖检测和优化系统
+- 优化UPX压缩设置，减小exe文件体积
+- 合并文档，简化项目结构
+- 修复批处理文件编码问题
+
+### v0.1.0
 - 初始版本发布
 - 基本的文档格式转换功能
 - 基于PyQt5的GUI界面
@@ -209,7 +226,10 @@ dist/
 A: 应用程序已内置Pandoc，此提示可能是由于文件损坏或路径错误。请尝试重新下载完整的应用程序包。
 
 ### Q: 打包后的exe文件无法正常运行
-A: 请参考 `REBUILD_GUIDE.md` 中的常见问题解决方案，或尝试使用 `rebuild_app.bat` 脚本重新打包。
+A: 请参考 `BUILD_GUIDE.md` 中的常见问题解决方案，或尝试使用 `rebuild_app.bat` 脚本重新打包。
+
+### Q: 打包后的exe文件太大？
+A: 使用 `rebuild_app.bat` 脚本并选择"Y"启用自动依赖优化，这可以显著减小exe文件体积。更多优化细节请参考 `UPX_OPTIMIZATION.md`。
 
 ### Q: 排版配置未生效
 A: 确保已正确选择模板文件，并且模板文件与目标输出格式兼容。
@@ -225,7 +245,7 @@ A: 请使用 `app_minimal_fixed.py` 作为入口点，而不是 `src/main.py`，
 
 ## 许可证
 
-本项目的许可证信息请查看 `LICENSE` 文件。
+本项目的许可证信息请查看 `LICENSE` 文件。有关项目使用的第三方库的许可证信息，请查看 `ThirdPartyLicenses.md` 文件。
 
 ## 贡献
 
