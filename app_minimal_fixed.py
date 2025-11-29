@@ -67,19 +67,19 @@ try:
     # 尝试直接导入模块，不使用包结构
     import importlib.util
     
-    # 加载main_window.py
-    main_window_path = os.path.join(os.path.dirname(__file__), 'src', 'ui', 'main_window.py')
+    # 加载simple_main_window.py
+    main_window_path = os.path.join(os.path.dirname(__file__), 'src', 'ui', 'simple_main_window.py')
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-        main_window_path = os.path.join(sys._MEIPASS, 'src', 'ui', 'main_window.py')
+        main_window_path = os.path.join(sys._MEIPASS, 'src', 'ui', 'simple_main_window.py')
     
-    print(f"Loading main_window from: {main_window_path}")
+    print(f"Loading simple_main_window from: {main_window_path}")
     
-    spec = importlib.util.spec_from_file_location("main_window", main_window_path)
+    spec = importlib.util.spec_from_file_location("simple_main_window", main_window_path)
     main_window_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(main_window_module)
     
-    PandocGUI = main_window_module.PandocGUI
-    print("PandocGUI class loaded successfully")
+    SimpleMainWindow = main_window_module.SimpleMainWindow
+    print("SimpleMainWindow class loaded successfully")
     
     # 创建应用程序
     app = QApplication(sys.argv)
@@ -92,8 +92,8 @@ try:
         sys.exit(1)
     
     # 创建主窗口
-    window = PandocGUI()
-    print("PandocGUI window created")
+    window = SimpleMainWindow()
+    print("SimpleMainWindow window created")
     window.show()
     
     # 运行应用程序
