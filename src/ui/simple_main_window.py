@@ -52,7 +52,7 @@ class SimpleMainWindow(QMainWindow):
         self.layout_templates = {
             'academic': {
                 'name': '学术论文风格',
-                'description': '适合论文、学术报告，包含标准的标题层级和引用格式',
+                'description': '适合论文、学术报告，包含标准的标题层级、章节编号和目录结构',
                 'template': None  # 可以后续添加具体模板
             },
             'business': {
@@ -62,7 +62,7 @@ class SimpleMainWindow(QMainWindow):
             },
             'technical': {
                 'name': '技术文档风格',
-                'description': 'API文档、技术手册，适合技术内容展示',
+                'description': 'API文档、技术手册，适合技术内容展示。',
                 'template': None
             },
             'simple': {
@@ -147,6 +147,7 @@ class SimpleMainWindow(QMainWindow):
         
         # 创建右侧区域（占1/3宽度）
         right_widget = QWidget()
+        right_widget.setFixedWidth(700)  # 设置固定宽度，确保步骤2和3区域稳定
         right_layout = QVBoxLayout(right_widget)
         right_layout.setSpacing(20)
         right_layout.setContentsMargins(0, 0, 0, 0)
@@ -159,7 +160,7 @@ class SimpleMainWindow(QMainWindow):
         
         # 添加到水平布局
         steps_layout.addWidget(step1_widget, 2)  # 占2/3宽度
-        steps_layout.addWidget(right_widget, 1)   # 占1/3宽度
+        steps_layout.addWidget(right_widget, 0)  # 不拉伸，使用固定宽度
         
         # 添加步骤容器到滚动布局
         scroll_layout.addWidget(steps_container)
@@ -189,7 +190,7 @@ class SimpleMainWindow(QMainWindow):
         header_layout.setSpacing(8)
         
         # 主标题 - 使用科技蓝突出"筋斗云"
-        title_label = QLabel('<span style="color: #ffffff; font-size: 64px; font-weight: 800;">筋斗云</span><span style="color: #f0f9ff; font-size: 64px; font-weight: 600;">排版</span>')
+        title_label = QLabel('<span style="color: #ffffff; font-size: 72px; font-weight: 900; font-family: \'Microsoft YaHei UI\', \'Segoe UI\', sans-serif; text-transform: uppercase;">筋斗云</span><span style="color: #f0f9ff; font-size: 72px; font-weight: 700; font-family: \'Microsoft YaHei UI\', \'Segoe UI\', sans-serif;">排版</span>')
         title_label.setAlignment(Qt.AlignCenter)
         title_label.setTextFormat(Qt.RichText)
         
@@ -244,7 +245,7 @@ class SimpleMainWindow(QMainWindow):
         """)
         
         ai_instruction_text = QLabel(
-            '1. 打开任意AI对话工具（如ChatGPT、文心一言等）\n'
+            '1. 打开任意AI对话工具（如ChatGPT、deepseek等）\n'
             '2. 复制以下指令并发送给AI：\n'
             '3. 将AI返回的HTML内容粘贴到下方文本框'
         )
@@ -267,7 +268,7 @@ class SimpleMainWindow(QMainWindow):
         ai_command_row_layout.addStretch()
         
         self.ai_command_input = QTextEdit()
-        self.ai_command_input.setPlainText('你是一个专业的HTML语义化标记专家。请根据以下规则，将提供的文档内容转换为结构良好的HTML代码：\n### 角色与任务\n- **角色**：你是一个经验丰富的Web开发者，擅长使用HTML5进行语义化标记。\n- **主要任务**：使用以下指定的HTML标签集合，对文档内容进行智能格式化，确保输出代码具有良好的可访问性和结构清晰性。\n- **可用标签列表**：html, body, head, title, meta, h1, h2, h3, h4, h5, h6, p, br, hr, strong, b, em, i, ul, ol, li, dl, dt, dd, a, img, table, thead, tbody, tr, th, td, code, pre, blockquote。\n### 具体规则\n1. **文档结构**：\n   - 若内容包含标题层级，使用`h1`-`h6`表示标题等级（如主标题用`h1`，子标题用`h2`等）。\n   - 段落用`p`标签，换行用`br`，水平分割线用`hr`。\n   - 列表内容：无序列表用`ul` > `li`，有序列表用`ol` > `li`，定义列表用`dl` > `dt`（术语）和`dd`（描述）。\n2. **文本强调**：加粗用`strong`（重要）或`b`（纯样式），斜体用`em`（强调）或`i`（技术术语）。\n3. **媒体与表格**：图片链接用`img`（需补全alt属性），表格数据用`table` > `thead`/`tbody` > `tr` > `th`/`td`。\n4. **代码与引用**：内联代码用`code`，代码块用`pre` > `code`，引用块用`blockquote`。\n### 输出要求\n- 生成完整的HTML文档结构（包括`html`、`head`、`body`等必要标签）。\n- 将最终HTML代码包裹在Markdown代码块中（即使用三重反引号格式）。\n- 示例输出格式：\n```\n<!DOCTYPE html>\n<html>\n<head><title>文档标题</title></head>\n<body>......</body>\n</html>\n```')
+        self.ai_command_input.setPlainText('【请输入文档题目】\n\n你是一个专业的HTML语义化标记专家。请根据以下规则，将上文所要求撰写的文档内容以结构良好的HTML代码输出：\n### 角色与任务\n- 角色：你是一个经验丰富的Web开发者，擅长使用HTML5进行语义化标记。\n- 主要任务：使用以下指定的HTML标签集合，对文档内容进行结构清晰、语义准确的格式化，确保输出代码具有良好的可访问性和结构清晰性。\n- 可用标签列表：html, body, head, meta, h1, h2, h3, h4, h5, h6, p, br, hr, strong, b, em, i, ul, ol, li, dl, dt, dd, a, img, table, thead, tbody, tr, th, td, code, pre, blockquote。\n### 具体规则\n1. 文档结构：\n   - 若内容包含标题层级，使用`h1`-`h6`表示标题等级（如主标题用`h1`，子标题用`h2`等）。\n   - 段落用`p`标签，换行用`br`，水平分割线用`hr`。\n   - 列表内容：无序列表用`ul` > `li`，有序列表用`ol` > `li`，定义列表用`dl` > `dt`（术语）和`dd`（描述）。\n2. 文本强调：加粗用`strong`（重要）或`b`（纯样式），斜体用`em`（强调）或`i`（技术术语）。\n3. 媒体与表格：图片链接用`img`（需补全alt属性），表格数据用`table` > `thead`/`tbody` > `tr` > `th`/`td`。\n4. 代码与引用：内联代码用`code`，代码块用`pre` > `code`，引用块用`blockquote`。\n### 输出要求\n- 生成的HTML文档结构（包括`html`、`head`、`body`等必要标签，但head中不要包含title标签）。\n- 将最终HTML代码包裹在Markdown代码块中（即使用三重反引号格式）。\n- 示例输出格式：\n```\n<!DOCTYPE html>\n<html>\n<head><meta charset="UTF-8">\n<!-- 注意：head内部不要包含title标签 -->\n</head>\n<body>......</body>\n</html>\n```')
         self.ai_command_input.setFixedHeight(240)
         self.ai_command_input.setReadOnly(True)  # 设置为只读模式
         self.ai_command_input.setStyleSheet("""
@@ -328,6 +329,7 @@ class SimpleMainWindow(QMainWindow):
         """创建步骤2区域：样式选择"""
         step2_frame = QFrame()
         step2_frame.setObjectName("step2Frame")
+        step2_frame.setFixedWidth(680)  # 设置固定宽度
         step2_frame.setStyleSheet("""
             QFrame#step2Frame {
                 background-color: #d7e8ff;
@@ -358,7 +360,7 @@ class SimpleMainWindow(QMainWindow):
         self.template_buttons = []
         templates = [
             {'id': 'simple', 'name': '简洁通用', 'desc': '日常办公文档'},
-            {'id': 'academic', 'name': '学术论文', 'desc': '适合论文、报告格式'},
+            {'id': 'academic', 'name': '学术论文', 'desc': '适合论文、报告格式（包含目录结构）'},
             {'id': 'business', 'name': '商务文档', 'desc': '企业报告、方案文档'},
             {'id': 'technical', 'name': '技术文档', 'desc': 'API文档、技术手册'}
         ]
@@ -366,7 +368,6 @@ class SimpleMainWindow(QMainWindow):
         for i, template in enumerate(templates):
             button = QPushButton(template['name'])
             button.setMinimumHeight(60)
-            button.setMinimumWidth(240)  # 增加宽度以适应纵向布局
             button.setProperty("template_id", template['id'])
             button.setProperty("template_desc", template['desc'])
             button.clicked.connect(lambda checked, t=template: self._on_template_button_clicked(t))
@@ -411,6 +412,7 @@ class SimpleMainWindow(QMainWindow):
         """创建步骤3区域：生成文档"""
         step3_frame = QFrame()
         step3_frame.setObjectName("step3Frame")
+        step3_frame.setFixedWidth(680)  # 设置固定宽度
         step3_frame.setStyleSheet("""
             QFrame#step3Frame {
                 background-color: #d7e8ff;
@@ -637,7 +639,6 @@ class SimpleMainWindow(QMainWindow):
                 font-size: 28px;
                 font-weight: 600;
                 min-height: 60px;
-                min-width: 240px;
             }
             QPushButton:hover {
                 background-color: #e2e8f0;
@@ -698,9 +699,9 @@ class SimpleMainWindow(QMainWindow):
                 button.setObjectName("selectedTemplate")
             else:
                 button.setObjectName("")
-        
-        # 强制刷新样式
-        self.setStyleSheet(self.styleSheet())
+            # 应用样式更新
+            button.style().unpolish(button)
+            button.style().polish(button)
                 
     def _copy_ai_command(self):
         """复制AI指令到剪贴板"""

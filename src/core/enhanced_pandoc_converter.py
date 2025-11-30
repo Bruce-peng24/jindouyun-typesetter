@@ -94,6 +94,10 @@ class EnhancedPandocConverter:
         try:
             import tempfile
             
+            # 获取项目根目录
+            current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            template_dir = os.path.join(current_dir, 'templates')
+            
             # 创建临时HTML文件
             with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8') as temp_file:
                 # 直接使用用户提供的HTML内容，不添加额外结构
@@ -103,19 +107,23 @@ class EnhancedPandocConverter:
             # 构建pandoc命令
             cmd = [self.pandoc_path, temp_html_path, '-o', output_file]
             
-            # 根据样式类型添加相应的参数
+            # 添加样式相关参数
+            cmd.extend(['--standalone'])
+            
+            # 添加对应模板文件
+            template_file = os.path.join(template_dir, f'{template_style}.docx')
+            if os.path.exists(template_file):
+                cmd.extend(['--reference-doc', template_file])
+            else:
+                print(f"警告: 模板文件不存在: {template_file}")
+            
+            # 根据样式类型添加额外的参数
             if template_style == 'academic':
                 # 学术论文风格：使用更正式的格式
-                cmd.extend(['--standalone', '--toc', '--number-sections'])
-            elif template_style == 'business':
-                # 商务报告风格：简洁专业
-                cmd.extend(['--standalone'])
+                cmd.extend(['--toc', '--number-sections'])
             elif template_style == 'technical':
                 # 技术文档风格：保留代码格式
-                cmd.extend(['--standalone', '--highlight-style', 'pygments'])
-            else:
-                # 简洁通用风格：标准格式
-                cmd.extend(['--standalone'])
+                cmd.extend(['--highlight-style', 'pygments'])
             
             # 执行转换
             result = subprocess.run(
