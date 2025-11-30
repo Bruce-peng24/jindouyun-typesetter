@@ -267,8 +267,8 @@ class SimpleMainWindow(QMainWindow):
         ai_command_row_layout.addStretch()
         
         self.ai_command_input = QTextEdit()
-        self.ai_command_input.setPlainText('请将此文档写成为HTML格式，不要编写css、js代码。直接输出HTML标签内容即可。')
-        self.ai_command_input.setFixedHeight(120)
+        self.ai_command_input.setPlainText('你是一个专业的HTML语义化标记专家。请根据以下规则，将提供的文档内容转换为结构良好的HTML代码：\n### 角色与任务\n- **角色**：你是一个经验丰富的Web开发者，擅长使用HTML5进行语义化标记。\n- **主要任务**：使用以下指定的HTML标签集合，对文档内容进行智能格式化，确保输出代码具有良好的可访问性和结构清晰性。\n- **可用标签列表**：html, body, head, title, meta, h1, h2, h3, h4, h5, h6, p, br, hr, strong, b, em, i, ul, ol, li, dl, dt, dd, a, img, table, thead, tbody, tr, th, td, code, pre, blockquote。\n### 具体规则\n1. **文档结构**：\n   - 若内容包含标题层级，使用`h1`-`h6`表示标题等级（如主标题用`h1`，子标题用`h2`等）。\n   - 段落用`p`标签，换行用`br`，水平分割线用`hr`。\n   - 列表内容：无序列表用`ul` > `li`，有序列表用`ol` > `li`，定义列表用`dl` > `dt`（术语）和`dd`（描述）。\n2. **文本强调**：加粗用`strong`（重要）或`b`（纯样式），斜体用`em`（强调）或`i`（技术术语）。\n3. **媒体与表格**：图片链接用`img`（需补全alt属性），表格数据用`table` > `thead`/`tbody` > `tr` > `th`/`td`。\n4. **代码与引用**：内联代码用`code`，代码块用`pre` > `code`，引用块用`blockquote`。\n### 输出要求\n- 生成完整的HTML文档结构（包括`html`、`head`、`body`等必要标签）。\n- 将最终HTML代码包裹在Markdown代码块中（即使用三重反引号格式）。\n- 示例输出格式：\n```\n<!DOCTYPE html>\n<html>\n<head><title>文档标题</title></head>\n<body>......</body>\n</html>\n```')
+        self.ai_command_input.setFixedHeight(240)
         self.ai_command_input.setReadOnly(True)  # 设置为只读模式
         self.ai_command_input.setStyleSheet("""
             QTextEdit {
@@ -486,14 +486,14 @@ class SimpleMainWindow(QMainWindow):
                 background-color: #f8fafc;
                 border-top: 1px solid #e2e8f0;
                 border-radius: 0px;
-                padding: 15px 0px;
+                padding: 15px 0px 5px 0px;
                 margin: 10px 0px 0px 0px;
             }
         """)
         
         info_layout = QVBoxLayout(info_frame)
-        info_layout.setSpacing(10)
-        info_layout.setContentsMargins(25, 15, 25, 15)
+        info_layout.setSpacing(5)
+        info_layout.setContentsMargins(25, 15, 25, 5)
         
         # 版本过期时间
         self.expiration_label = QLabel()
@@ -502,6 +502,7 @@ class SimpleMainWindow(QMainWindow):
             color: #dc2626;
             font-weight: 600;
         """)
+        self.expiration_label.setAlignment(Qt.AlignCenter)
         self.expiration_label.setText(get_expiration_message())
         
         # 测试版本说明
@@ -512,6 +513,7 @@ class SimpleMainWindow(QMainWindow):
             font-style: italic;
             line-height: 1.4;
         """)
+        self.test_version_label.setAlignment(Qt.AlignCenter)
         self.test_version_label.setWordWrap(True)
         self.test_version_label.setText(get_test_version_message())
         
@@ -519,6 +521,31 @@ class SimpleMainWindow(QMainWindow):
         info_layout.addWidget(self.test_version_label)
         
         parent_layout.addWidget(info_frame)
+        
+        # 创建底部反馈链接区域
+        feedback_frame = QFrame()
+        feedback_layout = QHBoxLayout(feedback_frame)
+        feedback_layout.setContentsMargins(0, 2, 0, 5)
+        
+        # 添加弹簧使链接居中
+        feedback_layout.addStretch()
+        
+        # 创建反馈与建议链接
+        feedback_label = QLabel('<a href="https://wj.qq.com/s2/25048545/zf1s/">反馈与建议_点击此处</a>')
+        feedback_label.setOpenExternalLinks(True)
+        feedback_label.setStyleSheet("""
+            font-size: 25px;
+            color: #3b82f6;
+            text-decoration: underline;
+            padding: 10px;
+        """)
+        feedback_layout.addWidget(feedback_label)
+        
+        # 添加右侧弹簧
+        feedback_layout.addStretch()
+        
+        # 将反馈区域添加到父布局（在tab区域之前）
+        parent_layout.addWidget(feedback_frame)
         
         # 添加信息展示区域
         self.bottom_tabs = InfoTabWidget()

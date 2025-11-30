@@ -46,14 +46,15 @@ excludes=[
     'rlcompleter', 'runpy', 'sched', 'secrets', 'select', 'selectors', 'shelve', 'shlex',
     'shutil', 'signal', 'site', 'smtpd', 'smtplib', 'sndhdr', 'socket', 'socketserver',
     'sqlite3', 'ssl', 'stat', 'statistics', 'string', 'stringprep', 'struct', 'sunau',
-    'symbol', 'symtable', 'sysconfig', 'syslog', 'tabnanny', 'tarfile', 'telnetlib', 'tempfile',
-    'termios', 'textwrap', 'threading', 'time', 'timeit', 'tkinter', 'token', 'tokenize',
-    'trace', 'traceback', 'tracemalloc', 'tty', 'turtle', 'typing', 'unicodedata', 'unittest',
-    'urllib', 'uu', 'uuid', 'venv', 'warnings', 'wave', 'weakref', 'webbrowser',
-    'win32api', 'win32con', 'win32file', 'win32gui', 'winreg', 'winsound', 'wsgiref', 'xdrlib',
-    'xml', 'xmlrpc', 'zipapp', 'zipfile', 'zipimport', 'zlib',
+    'symbol', 'symtable', 'sysconfig', 'syslog', 'tabnanny', 'tarfile', 'telnetlib', 'termios',
+    'textwrap', 'threading', 'time', 'timeit', 'tkinter', 'token', 'tokenize', 'trace',
+    'traceback', 'tracemalloc', 'tty', 'turtle', 'typing', 'unicodedata', 'unittest', 'urllib',
+    'uu', 'uuid', 'venv', 'warnings', 'wave', 'weakref', 'webbrowser', 'win32api',
+    'win32con', 'win32file', 'win32gui', 'winreg', 'winsound', 'wsgiref', 'xdrlib', 'xml',
+    'xmlrpc', 'zipapp', 'zipfile', 'zipimport', 'zlib',
 ],
 
+# === 以下为手动添加的其他依赖 ===
 # === 以下为手动添加的其他依赖 ===
 # === 以下为手动添加的其他依赖 ===
 # === 以下为手动添加的其他依赖 ===
@@ -87,7 +88,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='Pandoc-GUI',
+    name='jindouyun-typesetter',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

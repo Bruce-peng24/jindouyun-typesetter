@@ -1,5 +1,5 @@
 @echo off
-cd /d "C:\Practice-code\Pandoc-GUI"
+cd /d "c:\Practice-code\jindouyun-typesetter"
 
 echo =====================================
 echo Pandoc-GUI Build Tool (with dependency optimization)
@@ -33,7 +33,7 @@ if %ERRORLEVEL% == 1 (
 )
 
 echo.
-echo Generated exe file located at: dist\Pandoc-GUI.exe
+echo Generated exe file located at: dist\jindouyun-typesetter.exe
 echo.
 echo =====================================
 echo Note: If the program has issues, check BUILD_GUIDE.md
