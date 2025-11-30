@@ -38,11 +38,7 @@ along with PyQt5. If not, see <https://www.gnu.org/licenses/>.
 **版权所有**: John MacFarlane
 **描述**: Pandoc 是一个通用的文档转换工具，可以将一种标记格式转换为另一种。
 
-### 4. python-docx (版本 1.2.0)
-**许可证**: MIT License
-**用途**: 用于创建和修改 Microsoft Word (.docx) 文件的 Python 库
-**版权所有**: Python-docx 项目贡献者
-**描述**: python-docx 是一个用于创建、更新和读取 Microsoft Word (.docx) 文件的 Python 库。
+
 
 **许可证摘要**:
 ```
@@ -106,7 +102,7 @@ SOFTWARE.
 
 本软件使用了以下许可证类型的第三方组件：
 - GPL v2/v3: PyQt5, Pandoc, PyInstaller
-- MIT: python-docx, ntplib
+- MIT: ntplib
 - PSF License: Python
 
 ## 版权声明

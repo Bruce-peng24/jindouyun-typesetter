@@ -179,7 +179,7 @@ hiddenimports += collect_submodules('PyQt5.QtPrintSupport')
 
 3. 执行打包命令：
    ```bash
-   pyinstaller --onefile --windowed --name="Pandoc-GUI" --add-data "src;src" --add-data "pandoc;pandoc" --collect-all PyQt5 --collect-all docx --collect-all python-docx --collect-all ntplib app_minimal_fixed.py
+   pyinstaller --onefile --windowed --name="Pandoc-GUI" --add-data "src;src" --add-data "pandoc;pandoc" --collect-all PyQt5 --collect-all ntplib app_minimal_fixed.py
    ```
 
 4. 测试结果：
@@ -197,8 +197,7 @@ hiddenimports += collect_submodules('PyQt5.QtPrintSupport')
 - `--add-data "src;src"`: 包含src目录中的所有文件
 - `--add-data "pandoc;pandoc"`: 包含pandoc目录中的所有文件
 - `--collect-all PyQt5`: 包含PyQt5及其所有子模块
-- `--collect-all docx`: 包含python-docx库及其所有依赖
-- `--collect-all python-docx`: 确保docx模块的完整包含
+
 - `--collect-all ntplib`: 包含网络时间库
 - `app_minimal_fixed.py`: 使用修复后的入口点
 
@@ -218,14 +217,13 @@ Pandoc-GUI 需要以下Python包：
 
 ```
 PyQt5
-python-docx
 ntplib
 ```
 
 如果需要重新安装这些依赖，可以使用：
 
 ```bash
-pip install PyQt5 python-docx ntplib pyinstaller
+pip install PyQt5 ntplib pyinstaller
 ```
 
 ### 虚拟环境使用
@@ -240,10 +238,10 @@ python -m venv venv
 venv\Scripts\activate
 
 # 安装依赖
-pip install PyQt5 python-docx ntplib pyinstaller
+pip install PyQt5 ntplib pyinstaller
 
 # 打包应用程序
-pyinstaller --onefile --windowed --name="Pandoc-GUI" --add-data "src;src" --add-data "pandoc;pandoc" --collect-all PyQt5 --collect-all docx --collect-all python-docx --collect-all ntplib app_minimal_fixed.py
+pyinstaller --onefile --windowed --name="Pandoc-GUI" --add-data "src;src" --add-data "pandoc;pandoc" --collect-all PyQt5 --collect-all ntplib app_minimal_fixed.py
 ```
 
 ### 批处理文件编码问题

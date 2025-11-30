@@ -56,14 +56,6 @@ excludes=[
 
 # === 以下为手动添加的其他依赖 ===
 # === 以下为手动添加的其他依赖 ===
-# === 以下为手动添加的其他依赖 ===
-# === 以下为手动添加的其他依赖 ===
-# === 以下为手动添加的其他依赖 ===
-# === 以下为手动添加的其他依赖 ===
-tmp_ret = collect_all('docx')
-datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
-tmp_ret = collect_all('python-docx')
-datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 tmp_ret = collect_all('ntplib')
 datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 

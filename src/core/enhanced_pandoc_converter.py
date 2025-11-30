@@ -96,19 +96,7 @@ class EnhancedPandocConverter:
             
             # 创建临时HTML文件
             with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8') as temp_file:
-                # 确保HTML内容有完整的文档结构
-                if not html_content.strip().startswith('<!DOCTYPE') and not html_content.strip().startswith('<html'):
-                    html_content = f"""<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>文档</title>
-</head>
-<body>
-{html_content}
-</body>
-</html>"""
-                
+                # 直接使用用户提供的HTML内容，不添加额外结构
                 temp_file.write(html_content)
                 temp_html_path = temp_file.name
             
