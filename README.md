@@ -56,7 +56,7 @@
 ### 🏃‍♂️ 直接运行可执行文件（推荐）
 
 **步骤一：获取应用程序**
-- 下载仓库 · BrucePeng/jindouyun-typesetter - Gitee.com
+- 点击下载 [筋斗云排版.exe](https://gitee.com/brucepeng24/jindouyun-typesetter/repository/archive/master.zip)
 - 解压下载的压缩包
 
 **步骤二：启动应用程序**
