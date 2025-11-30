@@ -121,7 +121,7 @@ class AboutDialog(QDialog):
         app_name.setFont(QFont("Arial", 16, QFont.Bold))
         info_layout.addWidget(app_name)
         
-        version = QLabel("版本: 0.1.0")
+        version = QLabel("版本: 0.1.1")
         info_layout.addWidget(version)
         
         description = QLabel("一个简单易用的Pandoc图形界面工具")

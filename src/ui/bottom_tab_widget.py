@@ -43,9 +43,6 @@ class InfoTabWidget(QFrame):
         
         # 创建各个标签页
         self.create_about_tab()
-        self.create_features_tab()
-        self.create_faq_tab()
-        self.create_changelog_tab()
         self.create_disclaimer_tab()
         self.create_service_agreement_tab()
         self.create_privacy_policy_tab()
@@ -204,172 +201,36 @@ class InfoTabWidget(QFrame):
         about_text.setStyleSheet("font-size: 20px; line-height: 1.5;")
         about_text.setHtml("""
             <h3>关于与鸣谢</h3>
-            <p><b>筋斗云排版</b>是一个基于Pandoc的文档转换工具的图形用户界面。</p>
+            <p><b>筋斗云排版</b>是一款专为AI生成内容设计的智能排版工具，一键即可将AI内容转换为多种精美排版的Word文档，让您告别繁琐的手动调整。</p>
             
             <h4>版本信息</h4>
             <p>当前版本: 0.1.0 (首个版本)</p>
             
-            <h4>功能简介</h4>
-            <p>提供简单易用的界面，让用户无需记忆复杂的命令行参数即可轻松地转换文档格式。</p>
-            
-            <h4>鸣谢</h4>
-            <p>本软件使用了以下开源组件：</p>
+            <h4>核心特色</h4>
             <ul>
-                <li><b>Pandoc</b> - 核心文档转换引擎 (GPL v2+)</li>
+                <li>🚀 三步完成：复制指令 → 获取HTML → 生成文档</li>
+                <li>🎨 四种模板：简洁通用、学术论文、商务文档、技术文档</li>
+                <li>🤖 AI友好：内置专业提示词，让AI生成标准HTML内容</li>
+                <li>💡 开箱即用：无需安装Python或Pandoc，所有依赖已集成</li>
+            </ul>
+            
+            <h4>技术栈</h4>
+            <ul>
                 <li><b>PyQt5</b> - 图形界面框架 (GPL v3)</li>
+                <li><b>Pandoc</b> - 核心文档转换引擎 (GPL v2+)</li>
+                <li><b>PyInstaller</b> - 应用程序打包工具</li>
+                <li><b>Python 3.12.10</b> - 运行环境 (已集成)</li>
             </ul>
             
             <h4>开源项目</h4>
             <p>本项目已开源在GitHub上，欢迎访问、Fork和贡献代码：</p>
             <p><a href="https://github.com/Bruce-peng24/Pandoc-GUI">https://github.com/Bruce-peng24/Pandoc-GUI</a></p>
+            
+            <h4>鸣谢</h4>
+            <p>感谢所有为开源社区做出贡献的开发者，特别是Pandoc和PyQt5项目的维护者。</p>
+            <p>本软件采用GPL v3许可证发布，详情请查看LICENSE文件。</p>
         """)
         
         about_layout.addWidget(about_text)
         self.tab_widget.addTab(about_widget, "关于与鸣谢")
     
-    def create_features_tab(self):
-        """创建功能优势标签页"""
-        features_widget = QWidget()
-        features_layout = QVBoxLayout(features_widget)
-        
-        features_text = QTextEdit()
-        features_text.setReadOnly(True)
-        features_text.setStyleSheet("font-size: 20px; line-height: 1.5;")
-        features_text.setHtml("""
-            <h3>功能优势</h3>
-            <p>筋斗云排版提供了许多优势，让您能够轻松高效地进行文档格式转换：</p>
-            
-            <h4>直观的用户界面</h4>
-            <ul>
-                <li>简洁现代的界面设计，无需记忆复杂的命令行参数</li>
-                <li>可视化的操作流程，一目了然的功能布局</li>
-                <li>支持拖放文件，操作更加便捷</li>
-            </ul>
-            
-            <h4>强大的转换能力</h4>
-            <ul>
-                <li>支持多种常见文档格式之间的相互转换</li>
-                <li>基于Pandoc强大的转换引擎，保证转换质量</li>
-                <li>支持批量转换，提高工作效率</li>
-            </ul>
-            
-            <h4>自定义配置</h4>
-            <ul>
-                <li>提供丰富的转换选项，满足不同需求</li>
-                <li>支持自定义模板，个性化输出样式</li>
-                <li>可保存常用配置，一键应用预设</li>
-            </ul>
-            
-            <h4>实用功能</h4>
-            <ul>
-                <li>实时预览转换结果，减少试错成本</li>
-                <li>转换历史记录，方便追溯和重复使用</li>
-                <li>支持元数据编辑，增强文档信息管理</li>
-            </ul>
-            
-            <h4>性能优化</h4>
-            <ul>
-                <li>优化的转换流程，提高转换速度</li>
-                <li>低内存占用，适合各种配置的计算机</li>
-                <li>后台处理，不影响其他操作</li>
-            </ul>
-            
-            <h4>跨平台兼容</h4>
-            <ul>
-                <li>支持Windows、macOS和Linux系统</li>
-                <li>统一的用户体验，不同系统下操作一致</li>
-                <li>适配不同分辨率和屏幕尺寸</li>
-            </ul>
-        """)
-        
-        features_layout.addWidget(features_text)
-        self.tab_widget.addTab(features_widget, "功能优势")
-    
-    def create_faq_tab(self):
-        """创建常见问题标签页"""
-        faq_widget = QWidget()
-        faq_layout = QVBoxLayout(faq_widget)
-        
-        faq_text = QTextEdit()
-        faq_text.setReadOnly(True)
-        faq_text.setStyleSheet("font-size: 20px; line-height: 1.5;")
-        faq_text.setHtml("""
-            <h3>常见问题</h3>
-            <p>以下是用户在使用筋斗云排版过程中可能遇到的一些常见问题及其解答：</p>
-            
-            <h4>Q: 软件是否需要单独安装Pandoc？</h4>
-            <p>A: 筋斗云排版内置了Pandoc工具，通常不需要额外安装。但如果遇到转换问题，可能需要从官方网站安装最新版本的Pandoc。</p>
-            
-            <h4>Q: 支持哪些文档格式的转换？</h4>
-            <p>A: 筋斗云排版支持多种常见格式，包括但不限于：Markdown、HTML、Word(docx)、PDF、LaTeX、RTF、EPUB等。您可以在软件的格式选择下拉菜单中查看所有支持的格式。</p>
-            
-            <h4>Q: 转换大型文件时程序没有响应怎么办？</h4>
-            <p>A: 大型文件转换可能需要较长时间，请耐心等待。如果长时间无响应，可以尝试：1)检查文件是否损坏；2)将大文件拆分成小文件；3)关闭其他占用系统资源的程序。</p>
-            
-            <h4>Q: 如何自定义输出的文档样式？</h4>
-            <p>A: 您可以通过"高级选项"中的模板设置来自定义输出样式，或者使用自定义CSS文件。也可以保存常用的模板配置，方便下次使用。</p>
-            
-            <h4>Q: 转换后的中文内容显示异常怎么办？</h4>
-            <p>A: 请确保：1)源文件的编码格式正确；2)在转换选项中指定了正确的字体和编码；3)目标格式支持所使用的中文字体。</p>
-            
-            <h4>Q: 软件是否收费？</h4>
-            <p>A: 筋斗云排版是开源软件，基于GNU GPL v3协议发布，完全免费使用。您可以根据协议自由使用、修改和分发。</p>
-        """)
-        
-        faq_layout.addWidget(faq_text)
-        self.tab_widget.addTab(faq_widget, "常见问题")
-    
-    def create_changelog_tab(self):
-        """创建更新日志标签页"""
-        changelog_widget = QWidget()
-        changelog_layout = QVBoxLayout(changelog_widget)
-        
-        changelog_text = QTextEdit()
-        changelog_text.setReadOnly(True)
-        changelog_text.setStyleSheet("font-size: 20px; line-height: 1.5;")
-        changelog_text.setHtml("""
-            <h3>更新日志</h3>
-            
-            <h4>版本 0.1.0 (首次发布)</h4>
-            <p><b>发布日期:</b> 2025-11-29</p>
-            
-            <h5>新功能</h5>
-            <ul>
-                <li>初始版本发布</li>
-                <li>基于PyQt5的图形用户界面</li>
-                <li>集成Pandoc文档转换引擎</li>
-                <li>支持多种文档格式之间的转换</li>
-                <li>直观的文件拖放操作</li>
-                <li>转换进度显示</li>
-                <li>自定义转换选项</li>
-                <li>批量文件转换功能</li>
-            </ul>
-            
-            <h5>用户界面</h5>
-            <ul>
-                <li>简洁现代的设计风格</li>
-                <li>底部信息展示区域</li>
-                <li>关于与鸣谢、功能优势、常见问题等帮助信息</li>
-                <li>响应式布局设计</li>
-            </ul>
-            
-            <h5>技术特性</h5>
-            <ul>
-                <li>跨平台支持(Windows、macOS、Linux)</li>
-                <li>本地文档处理，无需网络连接</li>
-                <li>版本检查机制</li>
-                <li>错误处理和用户友好提示</li>
-            </ul>
-            
-            <h5>未来计划</h5>
-            <ul>
-                <li>添加更多文档格式支持</li>
-                <li>增强自定义模板功能</li>
-                <li>添加转换历史记录</li>
-                <li>改进用户界面交互体验</li>
-                <li>添加插件系统支持</li>
-            </ul>
-        """)
-        
-        changelog_layout.addWidget(changelog_text)
-        self.tab_widget.addTab(changelog_widget, "更新日志")
