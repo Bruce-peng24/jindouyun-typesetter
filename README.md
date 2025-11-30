@@ -89,7 +89,6 @@ python app_minimal_fixed.py
 ![界面截图](screenshots/main_interface.png)
 
 *简洁直观的三步操作界面，让排版工作变得轻松简单*
-*内置专业AI指令，一键复制，生成标准HTML内容*
 
 ## 📂 项目结构
 
