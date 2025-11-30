@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_all
 
-datas = [('src', 'src'), ('pandoc', 'pandoc')]
+datas = [('src', 'src'), ('pandoc', 'pandoc'), ('resource', 'resource')]
 binaries = []
 hiddenimports = []
 
@@ -54,6 +54,8 @@ excludes=[
     'xmlrpc', 'zipapp', 'zipfile', 'zipimport', 'zlib',
 ],
 
+# === 以下为手动添加的其他依赖 ===
+# === 以下为手动添加的其他依赖 ===
 # === 以下为手动添加的其他依赖 ===
 # === 以下为手动添加的其他依赖 ===
 tmp_ret = collect_all('ntplib')
