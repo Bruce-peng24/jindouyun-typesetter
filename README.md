@@ -1,6 +1,6 @@
 # 《筋斗云排版》
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
 
@@ -126,7 +126,9 @@ jindouyun-typesetter/
 
 ## 📄 许可证
 
-本项目的许可证信息请查看 `LICENSE` 文件。有关项目使用的第三方库的许可证信息，请查看 `ThirdPartyLicenses.md` 文件。
+本项目采用 **GPL v3** 许可证。
+
+详细许可证信息请查看 `LICENSE` 文件。有关项目使用的第三方库的许可证信息，请查看 `ThirdPartyLicenses.md` 文件。
 
 ## 🤝 贡献指南
 
